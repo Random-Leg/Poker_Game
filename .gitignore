@@ -1,0 +1,50 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Test, coverage and mutation-testing output
+.pytest_cache/
+.hypothesis/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.nox/
+mutants/
+.mutmut-cache
+html/
+
+# Packaging / build
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Profiling and performance runs
+*.prof
+*.lprof
+.benchmarks/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+__MACOSX/
+._*
+
+# Local environment / logs
+.env
+*.log
