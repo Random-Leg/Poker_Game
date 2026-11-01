@@ -24,8 +24,8 @@ It uses only the Python standard library. You only need `pytest` if you want to 
 ## Getting started
 
 ```bash
-git clone https://github.com/<your-username>/<repo-name>.git
-cd <repo-name>
+git clone https://github.com/Random-Leg/Poker_Game.git
+cd Poker_Game
 
 # optional: set up a virtual environment for the tests
 python -m venv .venv
