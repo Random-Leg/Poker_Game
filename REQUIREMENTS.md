@@ -1,545 +1,103 @@
-Poker Game — Project Requirements
-
-1. Project Overview
-
-The project is a text-based Texas Hold’em poker game implemented in Python.
-
-The game will consist of one human player and eight computer-controlled players (bots), for a total of nine players at the table.
-
-The system will implement the rules of Texas Hold’em, including card dealing, betting, blinds, hand evaluation, pot management, player elimination, and showdown.
-
-The system will also provide the human player with an estimated probability of winning the current hand.
-
-The project will initially focus on implementing the poker game itself. Software testing, test automation, coverage analysis, mutation testing, performance testing, and other testing activities will be developed after the core application is functional.
-
-⸻
-
-2. Card and Deck Requirements
-
-2.1 Card Identification
-
-* The game must use a standard 52-card deck.
-* Every card must have a unique ID.
-* Card IDs must range from 0 to 51.
-* No two cards may have the same ID.
-* A card’s ID must remain constant throughout the game.
-* Shuffling must change the order of cards, not their identities.
-
-2.2 Card Composition
-
-The deck must contain:
-
-* 4 suits:
-    * Hearts
-    * Diamonds
-    * Clubs
-    * Spades
-* 13 ranks:
-    * 2
-    * 3
-    * 4
-    * 5
-    * 6
-    * 7
-    * 8
-    * 9
-    * 10
-    * Jack
-    * Queen
-    * King
-    * Ace
-* Every combination of rank and suit must occur exactly once.
-
-2.3 Deck Creation
-
-* A new deck must contain exactly 52 cards.
-* All 52 cards must be unique.
-* The deck must contain exactly 13 cards of each rank.
-* The deck must contain exactly 13 cards of each suit.
-* No cards may be missing from a newly created deck.
-
-2.4 Shuffling
-
-* The deck must support random shuffling.
-* After shuffling, all 52 cards must still be present.
-* Shuffling must not create duplicate cards.
-* Shuffling must not remove cards.
-* The order of cards should normally change after shuffling.
-* The shuffled deck should be represented as an ordered collection from which cards can be drawn.
-
-2.5 Drawing Cards
-
-* Cards must be drawn from the top of the deck.
-* Drawing a card must remove it from the available deck.
-* A card that has been drawn must not be available for drawing again during the same hand.
-* Drawing one card must reduce the number of cards in the deck by one.
-* Attempting to draw from an empty deck must be handled appropriately.
-
-⸻
-
-3. Game Setup Requirements
-
-* Each game must contain exactly nine players.
-* There must be exactly one human player.
-* There must be exactly eight bot players.
-* Every player must have a unique identifier or name.
-* Each player must begin with a defined number of chips.
-* The dealer position must be tracked.
-* The small blind position must be tracked.
-* The big blind position must be tracked.
-* Dealer, small blind and big blind positions must rotate between hands.
-* Players with insufficient chips to continue must be handled appropriately.
-
-⸻
-
-4. Texas Hold’em Requirements
-
-4.1 Hole Cards
-
-* Each active player must receive exactly two private hole cards.
-* Hole cards must be dealt face down from the perspective of other players.
-* No two players may receive the same physical card.
-* The human player must be able to view their own hole cards.
-* A bot’s hole cards must not be revealed to the human player before showdown.
-
-4.2 Community Cards
-
-The game must use five community cards.
-
-The community cards must be revealed in the following stages:
-
-Flop
-
-* Three community cards are revealed.
-
-Turn
-
-* One additional community card is revealed.
-
-River
-
-* One additional community card is revealed.
-
-The final board must therefore contain exactly five community cards.
-
-4.3 Game Phases
-
-A hand must progress through the following stages:
-
-1. Pre-flop
-2. Flop
-3. Turn
-4. River
-5. Showdown
-
-The game must not skip required stages.
-
-⸻
-
-5. Betting Requirements
-
-5.1 General Betting
-
-The game must support the following player actions where legally permitted:
-
-* Fold
-* Check
-* Call
-* Bet
-* Raise
-* All-in
-
-The available actions must depend on the current game state.
-
-5.2 Betting Restrictions
-
-* A player must not be able to bet more chips than they possess.
-* A folded player must not be able to place further bets.
-* A player who is all-in must not be required to make further betting decisions.
-* A player must not be able to check when there is an outstanding bet they must match.
-* A player must be able to call when sufficient chips are available.
-* A player must be able to go all-in when legally permitted.
-* Invalid betting actions must be rejected without corrupting the game state.
-
-5.3 Minimum Raises
-
-* The game must enforce a minimum legal raise amount.
-* A raise below the minimum raise amount must be rejected unless it constitutes a legal all-in.
-* The current highest bet must be tracked.
-* The amount required for a player to call must be calculated correctly.
-
-5.4 Betting Rounds
-
-A betting round must continue until all remaining players have either:
-
-* folded,
-* gone all-in, or
-* contributed the required amount and had the opportunity to act.
-
-A new betting round must begin after the appropriate community cards are revealed.
-
-⸻
-
-6. Blinds Requirements
-
-* Every hand must begin with a small blind and big blind.
-* The small blind must be smaller than or equal to the big blind.
-* The blind positions must rotate around the table.
-* The dealer position must rotate between hands.
-* The initial blind amounts must be configurable.
-* Blind levels must increase as the game progresses.
-* The number of hands/rounds required before a blind increase must be configurable.
-* The system must prevent invalid blind configurations.
-* Players with fewer chips than the required blind must be handled as all-in or otherwise according to the rules of the game.
-
-Example blind structure:
-
-Level	Small Blind	Big Blind
-1	10	20
-2	15	30
-3	25	50
-4	50	100
-5	75	150
-6	100	200
-
-⸻
-
-7. Pot Requirements
-
-* The system must track the total pot.
-* Each player’s contribution to the current hand must be tracked.
-* Bets must be added to the appropriate pot.
-* The pot must be awarded to the winner(s) at showdown.
-* A player who folds must forfeit their contribution to the pot.
-* Ties must be handled correctly.
-* If multiple players have identical winning hands, the pot must be split appropriately.
-* Any indivisible remainder from a split pot must be handled according to a defined rule.
-* The system must support side pots when players have different amounts of chips and go all-in.
-
-⸻
-
-8. Hand Evaluation Requirements
-
-The system must correctly identify all standard Texas Hold’em poker hands.
-
-The hand rankings, from highest to lowest, are:
-
-1. Royal Flush
-2. Straight Flush
-3. Four of a Kind
-4. Full House
-5. Flush
-6. Straight
-7. Three of a Kind
-8. Two Pair
-9. One Pair
-10. High Card
-
-8.1 Best Five Cards
-
-* A player may have up to seven available cards:
-    * two hole cards
-    * five community cards.
-* The evaluator must determine the best possible five-card poker hand.
-* The player is not required to use both hole cards.
-* The player may use zero, one, or two hole cards when forming their best five-card hand.
-
-8.2 Tie Breaking
-
-The evaluator must correctly distinguish between hands of the same category.
-
-Examples include:
-
-* Higher pair beats lower pair.
-* Higher three-of-a-kind beats lower three-of-a-kind.
-* Higher full house beats lower full house.
-* Higher flush beats lower flush.
-* Higher straight beats lower straight.
-* Appropriate kickers must be considered.
-* Identical hands must result in a tie.
-
-8.3 Ace Handling
-
-The system must correctly handle the Ace as:
-
-* the highest card in normal circumstances;
-* the lowest card when forming an A-2-3-4-5 straight.
-
-⸻
-
-9. Player Requirements
-
-Each player must have:
-
-* Unique identifier/name
-* Chip balance
-* Hole cards
-* Current bet
-* Total contribution to the current hand
-* Folded status
-* All-in status
-* Active/inactive status
-
-The system must correctly update these values as the game progresses.
-
-A player’s chip balance must never become negative.
-
-⸻
-
-10. Bot Requirements
-
-The game must contain eight computer-controlled players.
-
-Each bot must have a distinct playing strategy.
-
-The different strategies should produce recognisably different behaviour.
-
-Each bot must:
-
-* make only legal actions;
-* respect its available chips;
-* respond to the current betting state;
-* have access to information that would be available to a real player;
-* not access another player’s private hole cards;
-* continue playing until it folds, goes all-in, or the hand ends.
-
-Bot behaviour should be configurable independently from the main game engine.
-
-⸻
-
-11. Probability Calculator Requirements
-
-The system must calculate an estimated probability of the human player’s hand winning.
-
-The probability calculator must consider:
-
-* the player’s hole cards;
-* known community cards;
-* number of remaining opponents;
-* cards already known to be unavailable;
-* possible future community cards.
-
-The probability calculator must return, where appropriate:
-
-* estimated win probability;
-* estimated tie probability;
-* estimated loss probability.
-
-The probabilities should satisfy:
-
-win probability + tie probability + loss probability ≈ 100%
-
-The calculator should initially use Monte Carlo simulation.
-
-The number of simulations should be configurable.
-
-For example:
-
-* 1,000 simulations
-* 10,000 simulations
-* 100,000 simulations
-
-The system should prevent known cards from appearing again in simulated outcomes.
-
-The probability calculator must use the same hand evaluation rules as the main poker game.
-
-The assumptions used by the probability calculator must be clearly defined.
-
-For example, opponent hole cards may initially be assumed to be randomly distributed among the remaining cards.
-
-⸻
-
-12. Game Progression Requirements
-
-* A new hand must begin after the previous hand has concluded.
-* The dealer position must rotate.
-* Blinds must rotate.
-* Eliminated players must no longer participate.
-* A player with zero chips must be eliminated from the game.
-* The game must continue while more than one player remains.
-* The game must end when only one player remains.
-* The final remaining player must be declared the tournament winner.
-
-⸻
-
-13. User Interface Requirements
-
-The game will initially use a text-based command-line interface.
-
-The interface should display:
-
-* player’s hole cards;
-* visible community cards;
-* player’s chip balance;
-* current pot;
-* current blind level;
-* current betting amount;
-* legal actions;
-* amount required to call;
-* minimum legal raise;
-* probability estimate where appropriate;
-* relevant game events.
-
-The interface must clearly communicate invalid user input.
-
-The program should request another input after an invalid action rather than terminating unexpectedly.
-
-The game should provide clear information about the result of each hand.
-
-⸻
-
-14. Error Handling Requirements
-
-The system must handle invalid user input without crashing.
-
-Examples include:
-
-* entering a non-numeric betting amount;
-* entering a negative betting amount;
-* attempting to bet more chips than available;
-* attempting an invalid action;
-* attempting to raise below the minimum;
-* attempting to act when folded;
-* attempting to act when all-in;
-* attempting to check when checking is not permitted.
-
-Internal game errors should not silently corrupt the game state.
-
-⸻
-
-15. Game State Requirements
-
-The game must maintain a consistent state throughout a hand.
-
-At any point, the system should be able to determine:
-
-* current phase;
-* current player;
-* dealer;
-* small blind;
-* big blind;
-* community cards;
-* remaining deck;
-* current pot;
-* current highest bet;
-* each player’s contribution;
-* each player’s chip balance;
-* each player’s status.
-
-The system must prevent impossible game states.
-
-Examples:
-
-* The same card appearing in two places.
-* A player having more than two hole cards.
-* More than five community cards.
-* A player having a negative chip balance.
-* A folded player taking an action.
-* A player being both active and eliminated.
-
-⸻
-
-16. Randomness Requirements
-
-The system must use randomisation for:
-
-* deck shuffling;
-* dealing cards;
-* generation of unknown cards for probability simulations;
-* random bot decisions where applicable.
-
-Randomness should be designed so that it can be controlled or replaced during testing.
-
-The game should ideally support the use of a fixed random seed for reproducible simulations and debugging.
-
-⸻
-
-17. Performance Requirements
-
-The probability calculator should complete a configurable number of simulations within a reasonable amount of time.
-
-The system should be capable of performing a sufficiently large number of simulations to produce useful probability estimates.
-
-Performance should be measured rather than assumed.
-
-Potential performance measurements include:
-
-* simulations per second;
-* time required for 1,000 simulations;
-* time required for 10,000 simulations;
-* time required for 100,000 simulations.
-
-⸻
-
-18. Future Testing Requirements
-
-The application will subsequently be tested using multiple testing approaches.
-
-Potential testing areas include:
-
-* unit testing;
-* integration testing;
-* system testing;
-* boundary-value testing;
-* equivalence partitioning;
-* state-based testing;
-* property-based testing;
-* statistical testing;
-* performance testing;
-* mutation testing;
-* regression testing;
-* robustness testing.
-
-Testing will be developed after the core application has been implemented.
-
-⸻
-
-19. Development Constraints
-
-* The application will be implemented in Python.
-* The application will initially be text-based.
-* The application will not require a graphical user interface.
-* The application will initially run locally.
-* External databases are not required for the core game.
-* Internet connectivity is not required for normal gameplay.
-* The implementation should prioritise clear separation of responsibilities between components.
-* The implementation should avoid unnecessary complexity that does not contribute to the objectives of the project.
-
-⸻
-
-20. Potential Future Enhancements
-
-These features are not part of the initial core requirements but may be considered if time permits:
-
-* Multiple poker table configurations.
-* Different starting chip amounts.
-* Custom blind structures.
-* Tournament mode.
-* Cash-game mode.
-* Different bot difficulty levels.
-* More sophisticated opponent modelling.
-* Expected value calculations.
-* Pot odds calculations.
-* Implied odds calculations.
-* Hand history logging.
-* Replay of previous hands.
-* Statistics across multiple games.
-* Graphs of player chip balances.
-* Exact probability calculation.
-* Comparison of exact probability against Monte Carlo estimates.
-* Configurable number of Monte Carlo simulations.
-* Configurable bot strategies.
-* Save/load game state.
-
----
-
-Running the game
-
-    python main.py            # play
-    python main.py --seed 42  # reproducible deal
-    python -m pytest          # run the tests
-
-On your turn: fold, check, call, bet, raise, all-in (or f / c / b / r / a).
-"raise 40" and "bet 20" work on one line. "raise" is the amount ON TOP of the
-current bet. "c" checks if possible, otherwise calls. "p" shows probabilities
-(Monte Carlo win/tie/lose estimate), "q" quits.
+# Poker Game: Requirements Specification
+
+## Overview
+
+A text-based Texas Hold'em tournament written in Python (standard library
+only, runs locally from the command line). One human plays against eight
+computer-controlled players. The system deals cards, runs the betting,
+manages blinds and pots, evaluates hands, eliminates players and declares a
+tournament winner. On their turn the human can ask for an estimated
+probability of winning the hand.
+
+Requirements are numbered by group (for example 3.5 is the fifth betting
+requirement) so that tests can say which requirement they check.
+
+## 1. Cards and deck (`card.py`, `deck.py`)
+
+- **1.1** A new deck must contain exactly 52 cards: every combination of 4 suits and 13 ranks exactly once, each with a unique ID from 0 to 51.
+- **1.2** A card's ID, suit and rank must never change; a card ID outside 0 to 51 must be rejected.
+- **1.3** Shuffling must only reorder the deck: the same 52 cards must be present afterwards, with none added, removed or duplicated.
+- **1.4** Drawing must remove and return one card, reducing the deck size by one; a drawn card must not be drawn again in the same hand.
+- **1.5** Drawing from an empty deck must raise an error, not return a card.
+
+## 2. Hand flow and tournament progression (`game.py`, `main.py`)
+
+- **2.1** A game must have exactly nine players with unique names (one human, eight bots); any other table must be rejected.
+- **2.2** At the start of a hand, every player still in the tournament must receive exactly two hole cards, and no card may be dealt to two places.
+- **2.3** A hand must move through pre-flop, flop (3 community cards), turn (4), river (5) and showdown in that order, without skipping a stage, unless all but one player fold.
+- **2.4** If all but one player fold, the hand must end immediately and the remaining player must win the pot without a showdown.
+- **2.5** When no further betting is possible (at most one player is not all-in), the remaining community cards must be dealt and the hand taken to showdown.
+- **2.6** The dealer, small blind and big blind positions must move one seat clockwise between hands, skipping eliminated players.
+- **2.7** With two players left (heads-up), the dealer must post the small blind and act first pre-flop; the big blind must act first after the flop.
+- **2.8** A player with zero chips at the end of a hand must be eliminated: not dealt in, not asked to act and not able to win a pot in later hands.
+- **2.9** The game must continue while more than one player has chips and must end when one player holds all the chips; that player is declared the winner.
+- **2.10** A complete tournament played by bots alone from a fixed seed must finish with a single winner and without an unhandled error.
+
+## 3. Betting and blinds (`betting.py`, `game.py`)
+
+- **3.1** The legal actions offered to a player (fold, check, call, bet, raise, all-in) must depend on the betting state: check only when nothing is owed; call only when something is owed and affordable; bet only when there is no bet; raise only when there is a bet.
+- **3.2** A player must never put in more chips than they hold.
+- **3.3** A folded player and an all-in player must not be able to take any further betting action in the hand.
+- **3.4** The amount to call must equal the current highest bet minus the player's contribution in this betting round, and never be negative.
+- **3.5** An opening bet below the big blind, or a raise below the minimum raise (the size of the last full bet or raise), must be rejected unless it puts the player all-in.
+- **3.6** An all-in for less than a full raise must not lower the current bet and must not change the minimum raise.
+- **3.7** A betting round must end only when every player still in the hand has folded, is all-in, or has matched the current bet after having had a chance to act.
+- **3.8** An illegal action must be rejected with an error and must leave chips, pot, bets and turn order exactly as they were.
+- **3.9** Every hand must start with a small blind and a big blind posted by the correct seats; a player who cannot cover a blind posts what they have and is all-in.
+- **3.10** Blind levels and the number of hands per level must be configurable; the blinds must rise to the next level after that number of hands and stay at the last level once it is reached.
+- **3.11** A blind configuration that is empty, has a non-positive blind, has a small blind larger than the big blind, or has fewer than one hand per level must be rejected.
+
+## 4. Pots and payout (`pot.py`, `game.py`)
+
+- **4.1** The pot total must always equal the sum of all players' contributions in the hand; a folded player's contribution stays in the pot.
+- **4.2** When players are all-in for different amounts, the pot must be split into a main pot and side pots so that each player can only win the part they matched.
+- **4.3** Chips that no other player could match (for example an uncalled bet) must be returned to the player who put them in.
+- **4.4** At showdown each pot must go to the best hand among the players eligible for that pot.
+- **4.5** Players with identical best hands must split the pot equally; chips that cannot be divided go one at a time to the winners nearest the dealer's left.
+- **4.6** Chips must be conserved: at the end of every hand, the chips held by all players must total the same as at the start of the tournament (9,000 by default).
+
+## 5. Hand evaluation (`evaluator.py`)
+
+- **5.1** The evaluator must recognise all ten hand categories and rank them: royal flush, straight flush, four of a kind, full house, flush, straight, three of a kind, two pair, one pair, high card.
+- **5.2** From five, six or seven cards, the evaluator must return the best possible five-card hand, using zero, one or two of the hole cards.
+- **5.3** Hands in the same category must be ordered correctly by the ranks that make the hand and then by kickers; hands that are equal on all five cards must tie.
+- **5.4** The ace must count high in general and low in an A-2-3-4-5 straight, which is the lowest straight.
+- **5.5** The fast evaluator (`evaluate`) must give the same result as the reference evaluator (`evaluate_bruteforce`) for every set of five to seven distinct cards.
+- **5.6** Fewer than five cards must be rejected with an error.
+
+## 6. Bots (`bot.py`, `game.py`)
+
+- **6.1** A bot must only ever return an action that is legal in the current state, with an amount within its chips and within the legal bet or raise range.
+- **6.2** A bot must decide using only its own hole cards and public information (community cards, pot, bets, chip counts); it must never be given another player's hole cards.
+- **6.3** A bot must not fold when it can check for free.
+- **6.4** An unknown strategy name, or an empty list of legal actions, must be rejected with an error.
+- **6.5** The three strategies (passive, balanced, aggressive) must behave measurably differently: over 2,000 identical decision situations, the share of bets and raises must be highest for aggressive, then balanced, then passive.
+- **6.6** Bot settings must be changeable in `STRATEGY_SETTINGS` without editing the game engine.
+
+## 7. Probability estimate (`probability.py`, `game.py`)
+
+- **7.1** The estimate must return win, tie and loss probabilities, each between 0 and 1, that sum to 1 (within 0.000001).
+- **7.2** Simulated cards must never repeat a card that is already known (the player's hole cards and the visible community cards) or another simulated card.
+- **7.3** The estimate must use the same hand evaluator as the showdown, and the number of opponents still in the hand.
+- **7.4** Invalid input must be rejected with an error: not exactly two hole cards, more than five community cards, duplicate known cards, fewer than one opponent, zero or negative simulations, or more opponents than the remaining cards allow.
+- **7.5** Accuracy: with 10,000 simulations, the estimated win probability must be within 2 percentage points of the exact value for heads-up reference hands whose exact odds are known.
+- **7.6** Speed: an estimate of 2,000 simulations against eight opponents (the in-game setting) must finish within 1 second, and 10,000 simulations within 5 seconds.
+- **7.7** Asking for the estimate must not use up the player's turn or change the game state.
+- **7.8** The assumptions of the estimate (opponents hold random cards, nobody folds) must be documented for the user.
+
+## 8. Robustness and state integrity (`player.py`, `game.py`, `main.py`)
+
+- **8.1** Invalid input from the human (unknown command, non-numeric, negative or too-large amount, illegal action) must produce a clear message and a new prompt, never a crash or a change of state.
+- **8.2** Quitting (`q`, Ctrl-C or end of input) must end the game cleanly and print the final standings.
+- **8.3** State invariants must hold after every action: no chip balance is negative; no player has more than two hole cards; there are at most five community cards; no card appears in two places; a folded or eliminated player is never the player to act.
+- **8.4** An operation attempted in the wrong game state (for example acting outside a betting round, or completing a hand before showdown) must raise an error and not change the state.
+- **8.5** Reproducibility: two games started with the same `--seed` and given the same inputs must produce identical deals, actions and results.
+- **8.6** The display must show the human their hole cards, the community cards, chip counts, pot, blinds, amount to call, minimum raise and legal actions, and must not show a bot's hole cards before showdown.
+- **8.7** Game output must be clear enough for a player to follow each hand's events and result.
+- **8.8** Game logic must stay separated by responsibility (cards, betting, pot, evaluation, bots, probability, engine, interface) so that each part can be tested on its own.
+
+## Out of scope
+
+Graphical interface, network play, saving and loading games, cash-game mode,
+opponent modelling and hand-history replay are not required and are not
+tested.
