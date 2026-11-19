@@ -145,3 +145,21 @@ Sasvata's instruction: ignore all time-management information in the course PDFs
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 `portfolio/LO1.md` and `REQUIREMENTS.md` contained no time-management or ISO content and were not changed.
+
+## 19 Nov 2026: instrumentation added (LO2)
+
+Instrumentation is the extra code that lets the game be observed, checked and controlled while it runs. It is added as new files only; no existing game module was edited (each of the ten `.py` modules was compared with the copy before this work and is identical).
+
+| File | Change |
+|---|---|
+| `invariants.py` | **New [code].** Checks that a game state is consistent: chips in stacks plus the pot equal the starting total; no negative chips or pot; the pot's per-player record adds up to the pot; each player holds 0 or 2 hole cards; the number of community cards matches the state (0, 3, 4, 5); no card appears twice across hands, board and deck; during betting the player to act has not folded, is not all-in and has chips; a player with no chips and a hand is marked all-in. `find_violations` returns the problems as text; `check_invariants` raises `InvariantViolation`. It only reads the game. |
+| `simulate.py` | **New [code].** Plays whole tournaments with all nine seats played by bots, checking the invariants after dealing, after every action, after showdown and after each reset. It records every action (the history), counts illegal bot actions instead of hiding them (the real game's `bot_turn` silently falls back to check, call or fold), stops a hand that needs more than 300 actions, and reports the hand number and the last 8 actions when a check fails. A seed makes a tournament repeatable. By default post-flop decisions use a random win probability so a tournament takes about 0.1 s; `--real-equity` uses the real 250-game Monte Carlo (about 3 s). Run with `python simulate.py --seed 1 --tournaments 20`. |
+| `tests/test_instrumentation.py` | **New [test].** 23 tests: no violations on fresh and started games; 9 deliberately corrupted states (extra chip, chip missing from pot, negative chips, third hole card, six community cards, card in two hands, card in hand and deck, folded player to act, board not matching state) are each detected; tournaments for seeds 1 to 5 finish with one player holding all 9000 chips; the same seed gives an identical history and different seeds differ; illegal bot actions are counted; an injected chip leak in `Pot.add_bet` is caught with the hand number and recent actions in the message. |
+| `pytest.ini` | **New [test].** Minimal: `pythonpath = .` and `testpaths = tests`. Replaces the one deleted earlier. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+Results: 23 of 23 tests pass. 300 seeded tournaments (seeds 100 to 399) raised no invariant violation and no illegal bot action. 297 finished; 3 (seeds 119, 166, 238) hit the 1000-hand limit because two passive bots kept trading chips at the highest blinds. This happens only with the random win probability: seed 119 finishes in 85 hands with the real Monte Carlo. 10 tournaments with the real Monte Carlo (seeds 1 to 10) also raised nothing.
+
+Not done, to be written up as improvements: logging inside `game.py`, timestamps, assertions inside the game itself, and recording each bot's strategy per decision.
+
+No existing game code was changed. Note: `__pycache__` has reappeared in the folder from running the game; it is ignored by `.gitignore`.
