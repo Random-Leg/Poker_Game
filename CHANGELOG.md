@@ -163,3 +163,25 @@ Results: 23 of 23 tests pass. 300 seeded tournaments (seeds 100 to 399) raised n
 Not done, to be written up as improvements: logging inside `game.py`, timestamps, assertions inside the game itself, and recording each bot's strategy per decision.
 
 No existing game code was changed. Note: `__pycache__` has reappeared in the folder from running the game; it is ignored by `.gitignore`.
+
+## 19 Nov 2026: LO2 portfolio text and plan update
+
+| File | Change |
+|---|---|
+| `portfolio/LO2.md` | **New [doc].** The LO2 portfolio text (about 455 words, four paragraphs: plan, evaluation of the plan, instrumentation, evaluation of the instrumentation). The sentence in square brackets at the end of 2.2 is a placeholder: it must be replaced with real results (targets met, faults found) once the tests have been run. |
+| `docs/LO2_test_plan.md` | **Edited [doc].** The "Bot-only game" scaffold now names `simulate.py` and `invariants.py`. One sentence added to the test design rule: tests of the instrumentation check the tools, not a requirement, and sit in their own file. A 19 Nov line added under "Changes to this plan". Nothing else changed. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+`REQUIREMENTS_v1.md` is kept (Sasvata's instruction). No game code was changed.
+
+## 19 Nov 2026: coverage and mutation testing deferred
+
+Sasvata's instruction: do not do coverage and mutation testing for now, present it as a limitation due to time, and add it when the rest of the project is done.
+
+| File | Change |
+|---|---|
+| `docs/LO2_test_plan.md` | **Edited [doc].** Tools: `coverage.py` and `mutmut` marked planned but deferred. Section 5: the coverage and mutation bullets moved out of the completion criteria into a "Deferred criteria" paragraph (targets kept, so they can be restored). Section 6 step 6 is now "Fault fixes" with a note. Section 7: monitoring by two numbers (was three). A line added under "Changes to this plan". |
+| `portfolio/LO2.md` | **Edited [doc].** 2.1: completion criteria no longer include coverage and mutation; one sentence says they were deferred for lack of time. 2.2: the sentence about thresholds replaced by one saying deferral leaves test strength unmeasured; "every criterion is a number" became "checkable". The bracketed placeholder is still there. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+Still to be changed when coverage and mutation are added back: this plan, `portfolio/LO2.md` and (if it mentions them) the LO3 and LO4 text. No game code was changed.

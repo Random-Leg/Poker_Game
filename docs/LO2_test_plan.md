@@ -22,9 +22,10 @@ trusted), security, load, behaviour on Windows, and how well the bots play.
 - The game code already exists, so tests for existing code are written after
   it. New code (instrumentation and fault fixes) is written test-first.
 - Changes to the game code must stay small.
-- Tools: `pytest` to run tests, `coverage.py` for statement and branch
-  coverage, `hypothesis` for property-based tests, `mutmut` for mutation
-  testing, GitHub Actions for continuous integration.
+- Tools: `pytest` to run tests, `hypothesis` for property-based tests, GitHub
+  Actions for continuous integration. `coverage.py` (statement and branch
+  coverage) and `mutmut` (mutation testing) are planned but deferred for lack
+  of time; they are added once the rest of the project is done.
 
 ## 3. Risks and what is done about them
 
@@ -88,13 +89,16 @@ covered by the betting unit tests and by full seeded games.
 - **Fixed equity:** `Bot.decide` already accepts a win probability, so bot
   tests do not have to run the simulation.
 - **Bot-only game:** nine bots play a whole tournament from a seed with no
-  human. This is the driver for the system tests.
+  human (`simulate.py`). It is the driver for the system tests and checks the
+  invariants in `invariants.py` after every action.
 
 ### Test design rule
 
 Each test names the requirement it checks in its first line. There is one
 test file per requirement group, eight in total, so the file list shows at a
 glance which groups are covered.
+The tests of the instrumentation itself check the tools, not a requirement,
+and sit in their own file.
 
 ### What happens when a test fails
 
@@ -111,14 +115,14 @@ A requirement **passes** when all tests naming it pass. Testing as a whole is
 
 - every one of the 60 requirements has at least one passing test (or a
   completed review, for the four qualitative ones);
-- no critical or severe fault is open;
-- branch coverage is at least 95% for `card`, `deck`, `player`, `pot`,
-  `betting` and `evaluator`, 90% for `probability`, 85% for `game` and 80%
-  for `bot`;
-- the mutation score is at least 80% for `evaluator`, `pot` and `betting`.
+- no critical or severe fault is open.
 
-`main.py` has no coverage target: it is mostly printing, and is covered by
-the system tests.
+**Deferred criteria** (to be added once the rest is done): branch coverage of
+at least 95% for `card`, `deck`, `player`, `pot`, `betting` and `evaluator`,
+90% for `probability`, 85% for `game` and 80% for `bot`; and a mutation score
+of at least 80% for `evaluator`, `pot` and `betting`. `main.py` would have no
+coverage target: it is mostly printing, and is covered by the system tests.
+Until then the strength of the tests is not measured, which is a limitation.
 
 ## 6. Order of activities
 
@@ -127,19 +131,23 @@ the system tests.
 3. Unit tests for `probability` and `bot`.
 4. Integration tests: hand flow, payout, state rules. Needs step 2.
 5. System tests: scripted games and bot-only tournaments. Needs steps 1 and 4.
-6. Coverage and mutation runs; fault fixes. Needs steps 2 to 5.
+6. Fault fixes. Needs steps 2 to 5. (Coverage and mutation runs deferred.)
 7. Code review and continuous integration. Needs only some tests to exist, so
    it does not have to wait for step 6.
 8. Evaluation of the results.
 
 ## 7. Monitoring
 
-Progress is judged after each step from three numbers: how many of the 60
-requirements have a passing test, branch coverage per module, and the number
-of open faults by severity.
+Progress is judged after each step from two numbers: how many of the 60
+requirements have a passing test, and the number of open faults by severity.
+Coverage per module is added when coverage runs are.
 
 ## 8. Changes to this plan
 
 - 12 Nov: first version.
 - 12 Nov: simplified. Removed hours, dates and the stakeholder section; the
   schedule became an ordered list of activities.
+- 19 Nov: instrumentation written (`invariants.py`, `simulate.py`); the
+  bot-only game scaffold now names them. No game module was edited.
+- 19 Nov: coverage and mutation testing deferred for lack of time; completion
+  criteria and monitoring reduced to match.
