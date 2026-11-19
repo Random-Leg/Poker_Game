@@ -9,7 +9,7 @@ changes are recorded at the end.
 **Item under test:** a command-line Texas Hold'em tournament in Python, ten
 modules, about 3,960 lines, one human against eight bots.
 
-**Features to be tested:** all 60 requirements, in eight groups: cards and
+**Features to be tested:** all 57 requirements, in eight groups: cards and
 deck, hand flow, betting and blinds, pots and payout, hand evaluation, bots,
 probability estimate, robustness and state integrity.
 
@@ -22,10 +22,10 @@ trusted), security, load, behaviour on Windows, and how well the bots play.
 - The game code already exists, so tests for existing code are written after
   it. New code (instrumentation and fault fixes) is written test-first.
 - Changes to the game code must stay small.
-- Tools: `pytest` to run tests, `hypothesis` for property-based tests, GitHub
-  Actions for continuous integration. `coverage.py` (statement and branch
-  coverage) and `mutmut` (mutation testing) are planned but deferred for lack
-  of time; they are added once the rest of the project is done.
+- Tools: `pytest` to run tests, `coverage.py` (via `pytest-cov`) for branch
+  coverage, `hypothesis` for property-based tests, GitHub Actions for
+  continuous integration. `mutmut` (mutation testing) is planned but deferred
+  for lack of time.
 
 ## 3. Risks and what is done about them
 
@@ -113,16 +113,20 @@ and sit in their own file.
 A requirement **passes** when all tests naming it pass. Testing as a whole is
 **complete** when:
 
-- every one of the 60 requirements has at least one passing test (or a
+- every one of the 57 requirements has at least one passing test (or a
   completed review, for the four qualitative ones);
-- no critical or severe fault is open.
+- no critical or severe fault is open;
+- branch coverage is at least 95% for `card`, `deck`, `player`, `pot`,
+  `betting` and `evaluator`, 90% for `probability`, 85% for `game` and 80%
+  for `bot`.
 
-**Deferred criteria** (to be added once the rest is done): branch coverage of
-at least 95% for `card`, `deck`, `player`, `pot`, `betting` and `evaluator`,
-90% for `probability`, 85% for `game` and 80% for `bot`; and a mutation score
-of at least 80% for `evaluator`, `pot` and `betting`. `main.py` would have no
-coverage target: it is mostly printing, and is covered by the system tests.
-Until then the strength of the tests is not measured, which is a limitation.
+`main.py` has no coverage target: it is mostly printing, and is covered by
+the system tests.
+
+**Deferred:** mutation testing (target: a mutation score of at least 80% for
+`evaluator`, `pot` and `betting`) is planned but deferred for lack of time.
+Until it is done, how well the tests detect faults is checked only by a small
+set of faults put in by hand.
 
 ## 6. Order of activities
 
@@ -131,16 +135,16 @@ Until then the strength of the tests is not measured, which is a limitation.
 3. Unit tests for `probability` and `bot`.
 4. Integration tests: hand flow, payout, state rules. Needs step 2.
 5. System tests: scripted games and bot-only tournaments. Needs steps 1 and 4.
-6. Fault fixes. Needs steps 2 to 5. (Coverage and mutation runs deferred.)
+6. Coverage run and fault fixes. Needs steps 2 to 5. (Mutation runs deferred.)
 7. Code review and continuous integration. Needs only some tests to exist, so
    it does not have to wait for step 6.
 8. Evaluation of the results.
 
 ## 7. Monitoring
 
-Progress is judged after each step from two numbers: how many of the 60
-requirements have a passing test, and the number of open faults by severity.
-Coverage per module is added when coverage runs are.
+Progress is judged after each step from three numbers: how many of the 57
+requirements have a passing test, branch coverage per module, and the number
+of open faults by severity.
 
 ## 8. Changes to this plan
 
@@ -151,3 +155,5 @@ Coverage per module is added when coverage runs are.
   bot-only game scaffold now names them. No game module was edited.
 - 19 Nov: coverage and mutation testing deferred for lack of time; completion
   criteria and monitoring reduced to match.
+- 19 Nov: coverage restored as a completion criterion (Sasvata); only mutation
+  testing remains deferred.

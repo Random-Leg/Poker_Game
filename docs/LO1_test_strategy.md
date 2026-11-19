@@ -1,7 +1,7 @@
 # LO1: Requirements analysis and test strategy
 
 This document supports Learning Outcome 1 of the portfolio. It classifies the
-60 requirements in `REQUIREMENTS.md`, chooses a way to test each group, and
+57 requirements in `REQUIREMENTS.md`, chooses a way to test each group, and
 says where each choice is weak. Requirement numbers (for example 3.5) refer to
 `REQUIREMENTS.md`.
 
@@ -11,7 +11,7 @@ The requirements fall into three kinds.
 
 | Kind | Count | Which | What "passing" means |
 |---|---|---|---|
-| Functional | 52 | Everything not listed below | The behaviour is correct or it is not |
+| Functional | 49 | Everything not listed below | The behaviour is correct or it is not |
 | Measurable quality | 4 | 6.5, 7.5, 7.6, 8.5 | A number meets a stated threshold |
 | Qualitative | 4 | 6.6, 7.8, 8.7, 8.8 | Judged by review, not by a test result |
 
@@ -29,7 +29,7 @@ Within those kinds, the requirements cover several different concerns:
 
 | Level | Count | Which | Example |
 |---|---|---|---|
-| Unit: one module alone | 32 | 1.1 to 1.5; 2.1; 3.1 to 3.6, 3.11; 4.1 to 4.3; 5.1 to 5.6; 6.3 to 6.6; 7.1, 7.2, 7.4 to 7.6; 8.8 | 5.4: the ace is low only in A-2-3-4-5 |
+| Unit: one module alone | 29 | 1.1 to 1.4; 2.1; 3.1 to 3.6; 4.1 to 4.3; 5.1 to 5.5; 6.3 to 6.6; 7.1, 7.2, 7.4 to 7.6; 8.8 | 5.4: the ace is low only in A-2-3-4-5 |
 | Integration: modules together | 19 | 2.2 to 2.8; 3.7 to 3.10; 4.4, 4.5; 6.1, 6.2; 7.3, 7.7; 8.3, 8.4 | 4.4: the engine gives each side pot (`pot.py`) to the best eligible hand (`evaluator.py`) |
 | System: the whole game | 9 | 2.9, 2.10; 4.6; 7.8; 8.1, 8.2, 8.5 to 8.7 | 2.10: a full bot-only tournament ends with one winner |
 

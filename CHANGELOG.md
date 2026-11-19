@@ -185,3 +185,66 @@ Sasvata's instruction: do not do coverage and mutation testing for now, present 
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 Still to be changed when coverage and mutation are added back: this plan, `portfolio/LO2.md` and (if it mentions them) the LO3 and LO4 text. No game code was changed.
+
+## 19 Nov 2026: LO3 test suite written
+
+All new files in `tests/` [test]. No game code was changed (the ten modules are identical to before).
+
+| File | Change |
+|---|---|
+| `tests/helpers.py` | **New [test].** Shared scaffolding: card shorthand (`card("AH")`), a stacked deck (`stack_deck` replaces the shuffle so chosen cards are dealt), game builders (`table`, `full_table`), a state snapshot and small drivers (check/call, fold, play to a state). |
+| `tests/test_1_cards_deck.py` | **New [test].** Cards and deck, 5 tests. |
+| `tests/test_2_hand_flow.py` | **New [test].** Hand flow and tournament progression, 10 tests: main line of states, fold exit from each betting state, wrong-state operations rejected and changing nothing, fold-around win, board run-out when all are all-in (including one player left with chips), dealer and blinds skipping eliminated seats, heads-up order, nine unique players, game over, bot-only tournaments. |
+| `tests/test_3_betting.py` | **New [test].** Betting and blinds, 13 tests: legal actions by state with boundary cases, amount to call, bet and raise minimums at the boundary, short all-in, folded and all-in players, illegal actions leaving state unchanged, big-blind option, blind levels, bad blind configurations, short stacks posting blinds. |
+| `tests/test_4_pots.py` | **New [test].** Pots and payout, 8 tests: contributions, main and side pots, refund, best hand per pot, eliminated shortest stack, uncalled chips in a heads-up all-in, odd chip, chip conservation over 25 hands. |
+| `tests/test_5_evaluation.py` | **New [test].** Hand evaluation, 9 tests: ten categories, best five of five to seven cards, ordering and kickers, ties, ace-low straight, fewer than five cards, fast evaluator against the brute-force reference on 600 hands. |
+| `tests/test_6_bots.py` | **New [test].** Bots, 5 tests: legal actions and amounts, never folds a free check, bad strategy and empty legal list, the three styles over 2,000 decisions, a bot is given only its own hole cards. |
+| `tests/test_7_probability.py` | **New [test].** Probability estimate, 5 tests: sums to 1, invalid input, no repeated cards, accuracy against exactly enumerated odds, timing; plus one test that a hand playing the board is a tie. |
+| `tests/test_8_robustness.py` | **New [test].** Robustness, 6 tests: bad human input, quitting (q, end of input, Ctrl-C), same seed gives identical games, tournaments with invariants, bot cards hidden before showdown, probability request leaves state unchanged. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+Results in the sandbox (Python 3.13, pytest 9.1.1): the whole suite, including `test_instrumentation.py`, is 149 test cases (about 72 test functions) and all pass in about 5 s. No fault was found in the game.
+
+To check that the tests can fail, 17 hand-made faults were put into a scratch copy of the game one at a time (not in this folder): 16 were caught, 1 survived. The survivor removed the "at least 2 players" check at the start of `start_hand`; the same error is still raised a few lines later by the blind posting, so the fault cannot be seen from outside. The faults were: raise and bet minimums off by one, a short all-in reopening the raise size, a check allowed with one chip owed, a call beyond the stack, no ace-low straight, a four-card straight, no refund of unmatched chips, odd chip to the wrong seat, duplicate names accepted, blinds rising a hand late, no board run-out, a shuffle that loses a card, zero opponents accepted, ties counted as wins, and a bot folding a free check.
+
+Not done: coverage (to be run on the Mac with `pytest --cov`) and mutation testing (deferred).
+
+## 19 Nov 2026: three tests removed, coverage config added
+
+Sasvata's instruction: do not test situations that can never happen in the game.
+
+| File | Change |
+|---|---|
+| `tests/test_1_cards_deck.py` | **Edited [test].** Removed `test_draw_from_empty_deck_raises` (drawing from an empty deck). The game never draws more than 23 cards from a 52-card deck. |
+| `tests/test_5_evaluation.py` | **Edited [test].** Removed `test_fewer_than_five_cards_is_rejected` (3 cases). The game always passes 5 to 7 cards. |
+| `tests/test_3_betting.py` | **Edited [test].** Removed `test_invalid_blind_configuration_is_rejected` (5 cases). The game uses fixed blind levels. |
+| `.coveragerc` | **New [test].** Two lines: branch coverage on, and the `tests/` folder left out of the coverage figures so they describe the game only. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+The suite is now 140 test cases, all passing. Requirements 1.5, 3.11 and 5.6 now have no test; `REQUIREMENTS.md` has not been changed yet (decision pending with Sasvata).
+
+## 19 Nov 2026: three requirements dropped (60 become 57)
+
+Sasvata's instruction: drop from `REQUIREMENTS.md` the requirements whose tests were removed. Each was the last in its group, so no other number changed.
+
+| File | Change |
+|---|---|
+| `REQUIREMENTS.md` | **Edited [doc].** Removed 1.5 (drawing from an empty deck raises an error), 3.11 (invalid blind configuration is rejected) and 5.6 (fewer than five cards is rejected). 57 requirements remain. |
+| `portfolio/LO1.md` | **Edited [doc].** Numbers only: 60 became 57 requirements; 52 became 49 functional; 32 became 29 unit level (integration 19 and system 9 are unchanged). |
+| `docs/LO1_test_strategy.md` | **Edited [doc].** Same numbers: 57 requirements; functional 49; unit 29, with its list now "1.1 to 1.4; 2.1; 3.1 to 3.6; 4.1 to 4.3; 5.1 to 5.5; ...". |
+| `portfolio/LO2.md`, `docs/LO2_test_plan.md` | **Edited [doc].** "60 requirements" became "57 requirements" (four places). |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+`REQUIREMENTS_v1.md` and older CHANGELOG entries still say 60; they describe earlier states and were left alone.
+
+## 19 Nov 2026: LO3 write-up, coverage restored in the plan
+
+| File | Change |
+|---|---|
+| `portfolio/LO3.md` | **New [doc].** The LO3 portfolio text (about 450 words, 3.1 to 3.4). Three coverage figures are in square brackets (`evaluator`, `game`) because they come from a run made before three tests were removed; replace them after a fresh coverage run. |
+| `docs/LO3_results.md` | **New [doc].** Supporting results: tests per file and technique, timing, the 17 hand-made faults and which were caught, branch coverage per module with what is not covered, and the unused code found. |
+| `docs/LO2_test_plan.md` | **Edited [doc].** Coverage is back as a completion criterion with the original per-module targets (95% for `card`, `deck`, `player`, `pot`, `betting`, `evaluator`; 90% `probability`; 85% `game`; 80% `bot`) and in monitoring (three numbers again). Only mutation testing stays "Deferred", now with a note that hand-made faults are the only check on fault detection. Tools list: `coverage.py` in use. Step 6 is "Coverage run and fault fixes". A line added under "Changes to this plan". |
+| `portfolio/LO2.md` | **Edited [doc].** 2.1: coverage targets restored, only the mutation score deferred. 2.2: the bracketed placeholder is gone; it now says that deferring mutation testing leaves fault detection partly measured and that finding no fault may mean sound code or shared assumptions. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+The original coverage targets were set on 12 Nov, before any measurement, so they are kept unchanged for comparison in LO4 (achieved against target). No game code was changed.

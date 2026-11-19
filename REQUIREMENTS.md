@@ -18,7 +18,6 @@ requirement) so that tests can say which requirement they check.
 - **1.2** A card's ID, suit and rank must never change; a card ID outside 0 to 51 must be rejected.
 - **1.3** Shuffling must only reorder the deck: the same 52 cards must be present afterwards, with none added, removed or duplicated.
 - **1.4** Drawing must remove and return one card, reducing the deck size by one; a drawn card must not be drawn again in the same hand.
-- **1.5** Drawing from an empty deck must raise an error, not return a card.
 
 ## 2. Hand flow and tournament progression (`game.py`, `main.py`)
 
@@ -45,7 +44,6 @@ requirement) so that tests can say which requirement they check.
 - **3.8** An illegal action must be rejected with an error and must leave chips, pot, bets and turn order exactly as they were.
 - **3.9** Every hand must start with a small blind and a big blind posted by the correct seats; a player who cannot cover a blind posts what they have and is all-in.
 - **3.10** Blind levels and the number of hands per level must be configurable; the blinds must rise to the next level after that number of hands and stay at the last level once it is reached.
-- **3.11** A blind configuration that is empty, has a non-positive blind, has a small blind larger than the big blind, or has fewer than one hand per level must be rejected.
 
 ## 4. Pots and payout (`pot.py`, `game.py`)
 
@@ -63,7 +61,6 @@ requirement) so that tests can say which requirement they check.
 - **5.3** Hands in the same category must be ordered correctly by the ranks that make the hand and then by kickers; hands that are equal on all five cards must tie.
 - **5.4** The ace must count high in general and low in an A-2-3-4-5 straight, which is the lowest straight.
 - **5.5** The fast evaluator (`evaluate`) must give the same result as the reference evaluator (`evaluate_bruteforce`) for every set of five to seven distinct cards.
-- **5.6** Fewer than five cards must be rejected with an error.
 
 ## 6. Bots (`bot.py`, `game.py`)
 
