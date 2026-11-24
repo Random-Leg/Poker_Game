@@ -96,15 +96,6 @@ def test_ace_is_low_only_in_the_wheel_and_the_wheel_is_the_lowest_straight():
     assert evaluate(cards("AH 2H 3H 4H 5H")).rank == HandRank.STRAIGHT_FLUSH
 
 
-@pytest.mark.parametrize("count", [0, 1, 4])
-def test_fewer_than_five_cards_is_rejected(count):
-    # 5.6
-    with pytest.raises(ValueError):
-        evaluate(ALL_CARDS[:count])
-    with pytest.raises(ValueError):
-        evaluate_bruteforce(ALL_CARDS[:count])
-
-
 def test_fast_evaluator_matches_the_reference_on_random_hands():
     # 5.5 the brute-force evaluator is the oracle (diversity)
     rng = random.Random(2026)

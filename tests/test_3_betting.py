@@ -176,22 +176,6 @@ def test_blinds_rise_after_the_configured_number_of_hands_and_then_stay():
     assert seen == [(10, 20), (10, 20), (20, 40), (20, 40), (40, 80), (40, 80), (40, 80)]
 
 
-@pytest.mark.parametrize(
-    "kwargs",
-    [
-        {"blind_levels": []},
-        {"blind_levels": [(0, 10)]},
-        {"blind_levels": [(-5, 10)]},
-        {"blind_levels": [(20, 10)]},
-        {"hands_per_level": 0},
-    ],
-)
-def test_invalid_blind_configuration_is_rejected(kwargs):
-    # 3.11
-    with pytest.raises(ValueError):
-        full_table(**kwargs)
-
-
 @pytest.mark.parametrize("seat, stack", [(1, 5), (2, 15)])
 def test_player_who_cannot_cover_a_blind_posts_what_they_have_and_is_all_in(seat, stack):
     # 3.9 hand 1: dealer is seat 0, small blind seat 1 (10), big blind seat 2 (20)

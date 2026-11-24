@@ -269,3 +269,30 @@ No game code or tests were changed.
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 No game code or tests were changed.
+
+## 24 Nov 2026: the three removed tests were still in the folder; now removed
+
+Sasvata's coverage run collected 149 tests, not 140. The three tests dropped on 19 Nov (and their requirements) were still in the Mac copy of `tests/`.
+
+| File | Change |
+|---|---|
+| `tests/test_1_cards_deck.py` | **Edited [test].** Removed `test_draw_from_empty_deck_raises` (1 case). |
+| `tests/test_3_betting.py` | **Edited [test].** Removed `test_invalid_blind_configuration_is_rejected` (5 cases). |
+| `tests/test_5_evaluation.py` | **Edited [test].** Removed `test_fewer_than_five_cards_is_rejected` (3 cases). |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+149 minus 9 cases leaves 140. The tests were not run here (this shell has no pytest); only syntax was checked. A backup of the old `tests/` folder is in `/tmp` on the sandbox, not in the folder. No game code changed.
+
+## 24 Nov 2026: fresh coverage run, brackets replaced, 5.4 local evidence
+
+Sasvata ran `pytest --cov` (140 passed, 75% total) and `./run_checks.sh` (tests, coverage gate 70% reached at 75.03%, 20 seeded tournaments all finished, 0 illegal bot actions).
+
+| File | Change |
+|---|---|
+| `portfolio/LO3.md` | **Edited [doc].** Brackets replaced with the fresh figures (evaluator 91%, game 82%), added deck 92%, player 78% and 75% overall; run time "about seven seconds"; 3.4 now says deck, betting and evaluator are within four points. |
+| `portfolio/LO4.md` | **Edited [doc].** Same figures in 4.3. `deck` no longer meets 95% (92%; its one missed line is the unreachable empty-deck error, left untested after that test was removed). Removed my unverified claim that excluding dead code would put `bot` and `probability` "close to target"; it now says only that excluding it would raise both. |
+| `docs/LO3_results.md` | **Edited [doc].** Coverage table updated (deck, evaluator, game), note added for `invariants.py` 93% and `simulate.py` 82%. |
+| `portfolio/LO5.md` | **Edited [doc].** 5.4 filled from the local `run_checks.sh` run; the real GitHub Actions run and screenshot remain to be added after the push. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+No game code or tests changed.

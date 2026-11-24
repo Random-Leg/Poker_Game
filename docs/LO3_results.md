@@ -50,23 +50,22 @@ The last fault cannot be seen from outside: a later check in the same method rai
 Six of the faults were missed by the first version of the suite; tests were added for them and they were
 re-run, so the figure above is after that improvement.
 
-## 3. Branch coverage (run on the Mac before three tests were removed)
+## 3. Branch coverage (Mac run, 24 Nov, 140 tests, 75% overall)
 
 | Module | Statements | Missed | Cover | What is not covered |
 |---|---|---|---|---|
-| `deck.py` | 18 | 0 | 100% | |
+| `deck.py` | 18 | 1 | 92% | empty-deck error (play cannot reach it) |
 | `card.py` | 36 | 1 | 97% | text conversion `__str__` |
-| `evaluator.py` | 161 | 9 | 93% | text description of hands, one length check |
+| `evaluator.py` | 161 | 11 | 91% | text description of hands, length checks, comparing with a non-hand |
 | `betting.py` | 131 | 7 | 92% | folded or all-in refusals in five checks; fold twice; bet of zero |
-| `game.py` | 576 | 86 | 83% | probability display for the human, unused methods, rarely used display branches |
+| `game.py` | 576 | 89 | 82% | probability display for the human, unused methods, rarely used display branches |
 | `main.py` | 128 | 18 | 81% | parts of the start-up and prompts |
 | `player.py` | 27 | 4 | 78% | error paths (negative chips, third card, bet of zero) |
 | `pot.py` | 65 | 10 | 77% | error paths of `add_bet` and `add_all_in`, chips with no recorded owner |
 | `bot.py` | 246 | 99 | 56% | an older decision method and its helpers, which nothing calls |
 | `probability.py` | 203 | 111 | 42% | hand-type probability tables used only by the human's `p` display |
 
-Figures for `deck`, `evaluator` and `game` are from a run made before the tests for drawing from an empty
-deck, fewer than five cards and invalid blinds were removed; they will be a little lower on a fresh run.
+The scaffolding is covered too: `invariants.py` 93%, `simulate.py` 82%. These figures come from a run after the tests for drawing from an empty deck, fewer than five cards and invalid blinds were removed.
 
 Unused code (nothing in the game calls it): `Bot.choose_action` and its helpers, and the `PokerGame` methods
 `determine_winners`, `get_bot_probability_report` and `get_probability_report`. Tests for code that never

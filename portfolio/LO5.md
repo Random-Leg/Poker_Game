@@ -6,4 +6,4 @@
 
 **5.3 Automation.** Every test is executable and follows arrange, act, assert, with expected values written into the test. Following the test pyramid, 117 of the 140 cases are unit and integration level, and a few system tests drive whole hands and seeded tournaments with no screen interaction: a patched `input` supplies the human's choices and a fixed deck stacks the cards. `run_checks.sh` runs the same two pipeline steps locally with one command.
 
-**5.4 Demonstration.** [To be added: output of `run_checks.sh` and the GitHub Actions run.]
+**5.4 Demonstration.** Running `run_checks.sh` on 24 Nov: all 140 tests passed in 7.0 s with 75% total branch coverage (gate 70%), then all 20 seeded tournaments ran to a winner (28 to 403 hands each, no illegal bot action, no broken invariant). The same workflow has not yet run on GitHub Actions; [screenshot of that run to be added after the push].

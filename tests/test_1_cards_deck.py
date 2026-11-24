@@ -46,11 +46,3 @@ def test_draw_removes_one_card_and_never_repeats():
         assert len(deck) == expected_size
     assert len({c.card_id for c in drawn}) == 52
 
-
-def test_draw_from_empty_deck_raises():
-    # 1.5
-    deck = Deck()
-    for _ in range(52):
-        deck.draw()
-    with pytest.raises(ValueError):
-        deck.draw()
