@@ -296,3 +296,12 @@ Sasvata ran `pytest --cov` (140 passed, 75% total) and `./run_checks.sh` (tests,
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 No game code or tests changed.
+
+## 24 Nov 2026: requirement 2.8 reworded
+
+| File | Change |
+|---|---|
+| `REQUIREMENTS.md` | **Edited [doc].** 2.8 now reads "A player with zero chips at the end of a hand must be eliminated: not dealt in and not asked to act in later hands." The phrase "and not able to win a pot" was dropped (Sasvata's decision): an eliminated player is never dealt cards, so it adds nothing a test could check. The count stays at 57. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+Comments in `tests/test_2_hand_flow.py` and `tests/test_4_pots.py` that mention 2.8 were left as they are. `REQUIREMENTS_v1.md` and older entries are unchanged.

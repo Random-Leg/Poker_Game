@@ -28,7 +28,7 @@ requirement) so that tests can say which requirement they check.
 - **2.5** When no further betting is possible (at most one player is not all-in), the remaining community cards must be dealt and the hand taken to showdown.
 - **2.6** The dealer, small blind and big blind positions must move one seat clockwise between hands, skipping eliminated players.
 - **2.7** With two players left (heads-up), the dealer must post the small blind and act first pre-flop; the big blind must act first after the flop.
-- **2.8** A player with zero chips at the end of a hand must be eliminated: not dealt in, not asked to act and not able to win a pot in later hands.
+- **2.8** A player with zero chips at the end of a hand must be eliminated: not dealt in and not asked to act in later hands.
 - **2.9** The game must continue while more than one player has chips and must end when one player holds all the chips; that player is declared the winner.
 - **2.10** A complete tournament played by bots alone from a fixed seed must finish with a single winner and without an unhandled error.
 
