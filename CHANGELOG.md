@@ -248,3 +248,24 @@ Sasvata's instruction: drop from `REQUIREMENTS.md` the requirements whose tests 
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 The original coverage targets were set on 12 Nov, before any measurement, so they are kept unchanged for comparison in LO4 (achieved against target). No game code was changed.
+
+## 20 Nov 2026: LO4 write-up
+
+| File | Change |
+|---|---|
+| `portfolio/LO4.md` | **New [doc].** The LO4 portfolio text (about 460 words, 4.1 to 4.4). Mutation testing is written as a reflection only (Sasvata's choice; allowed by the lecturer's 19 Nov relaxation): not run for lack of time, and what it would add is described in 4.4. Coverage figures are in square brackets until a fresh run replaces them. The 95% interval for the fault-detection rate (16 of 17 caught gives about 71% to 100%) is an exact binomial (Clopper-Pearson) calculation. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+No game code or tests were changed.
+
+## 20 Nov 2026: LO5 review, pipeline and automation (5.4 not yet done)
+
+| File | Change |
+|---|---|
+| `docs/LO5_review.md` | **New [doc].** Code review record for `evaluator.py` and `pot.py`: criteria, method, seven evaluator issues, six pot issues, the dead code from LO3. No functional bug found; nothing fixed (Sasvata: report only). Two ad hoc checks were run for it and are not part of the suite: 200,000 random hands (fast evaluator against the brute-force oracle) and 30,000 random pots (chip conservation). |
+| `ci/tests.yml` | **New [tool].** GitHub Actions workflow (kept in `ci/` because the tools cannot write into `.github/`; move it to `.github/workflows/tests.yml` when pushing): pytest with branch coverage and a 70% total gate on Python 3.10 and 3.13, then 20 seeded `simulate.py` tournaments. Not pushed. The 70% gate is a guess pending a fresh coverage run; adjust it after. Only its YAML syntax was checked. |
+| `run_checks.sh` | **New [tool].** Runs the same two steps locally. Only its syntax was checked (`bash -n`); not yet run, because running it is the 5.4 evidence. |
+| `portfolio/LO5.md` | **New [doc].** LO5 text (about 340 words). 5.4 is a placeholder. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+No game code or tests were changed.
