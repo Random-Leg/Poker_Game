@@ -44,11 +44,12 @@ Each fault was put into a scratch copy of the game on its own and the suite was 
 | Zero opponents accepted by the estimate | invalid input test |
 | Ties counted as wins | tie test |
 | Pre-flop bot may fold a free check | bot test |
-| Game starts a hand with one player | **not caught** |
+| Game starts a hand with one player | **not caught: cannot be observed** (see below) |
 
-The last fault cannot be seen from outside: a later check in the same method raises the same error.
-Six of the faults were missed by the first version of the suite; tests were added for them and they were
-re-run, so the figure above is after that improvement.
+The last fault is not a gap in the tests. It removes a check, but a later check in the same method raises the
+same error, so no test can tell the faulty game from the correct one. Five of the faults were missed by the
+first version of the suite; tests were added for four of them, and the fifth is this one. The figure above is
+after that improvement.
 
 ## 3. Branch coverage (Mac run, 24 Nov, 140 tests, 75% overall)
 
