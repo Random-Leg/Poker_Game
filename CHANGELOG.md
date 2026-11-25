@@ -305,3 +305,20 @@ No game code or tests changed.
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 Comments in `tests/test_2_hand_flow.py` and `tests/test_4_pots.py` that mention 2.8 were left as they are. `REQUIREMENTS_v1.md` and older entries are unchanged.
+
+## 25 Nov 2026: LO4 reworked; reliability check added
+
+| File | Change |
+|---|---|
+| `tournament_stats.py` | **New [tool].** Runs many seeded bot-only tournaments (fast mode) through `simulate.play_tournament`, counts failures (any exception: broken invariant, crash, stuck hand) and unfinished tournaments, and prints exact Clopper-Pearson 95% bounds. Game code unchanged. |
+| `portfolio/LO4.md` | **Edited [doc].** Rewritten to Sasvata's points. 4.1: bot strength, real users, common-mode risk. 4.2: coverage per module, accuracy and speed, and a reliability target added for this section. 4.3: adds the statistical result. 4.4: delete dead code, property-based tests, second reviewer and usability session. Mutation testing is no longer mentioned in LO4. About 540 words. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+Result of `python3 tournament_stats.py --seed 1 --tournaments 1000` (37 s, Python 3.10, seeds 1 to 1000): 0 failures; 839,685 actions checked; 987 finished (98.7%, 95% interval 97.8% to 99.3%); 13 stopped at the 1,000-hand cap; 0 illegal bot actions; failure-rate upper bound 0.37%. The cap hits are attributed to the fast mode's random equity (consistent with 3 of 300 earlier); not verified by a real-equity run.
+
+## 25 Nov 2026: mutation testing mentioned briefly in LO4
+
+| File | Change |
+|---|---|
+| `portfolio/LO4.md` | **Edited [doc].** One sentence added to the end of 4.4: mutation testing (not run for lack of time) would measure the detection rate directly, using sampled mutants. About 560 words. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
