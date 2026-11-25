@@ -322,3 +322,19 @@ Result of `python3 tournament_stats.py --seed 1 --tournaments 1000` (37 s, Pytho
 |---|---|
 | `portfolio/LO4.md` | **Edited [doc].** One sentence added to the end of 4.4: mutation testing (not run for lack of time) would measure the detection rate directly, using sampled mutants. About 560 words. |
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+## 25 Nov 2026: LO5 5.1 rewritten
+
+| File | Change |
+|---|---|
+| `portfolio/LO5.md` | **Edited [doc].** 5.1 rewritten to be clearer, at Sasvata's request. Kept: scope, criteria, complexity result (26 and 25), the oracle-independence and `Pot` double-record issues, the two ad hoc checks, nothing fixed, sole-reviewer caveat. Dropped: duplicate-card check, `EvaluatedHand` hashing and `<=`, `Pot.award` bypassing `Player`, and the reachability sentence. 5.2 to 5.4 unchanged. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+`docs/LO5_review.md` still lists all 13 issues; it was not changed.
+
+## 25 Nov 2026: LO5 5.2 rewritten
+
+| File | Change |
+|---|---|
+| `portfolio/LO5.md` | **Edited [doc].** 5.2 rewritten to be clearer, at Sasvata's request. The workflow path is now given as `.github/workflows/tests.yml` (the file is still in `ci/tests.yml` until Sasvata moves it when pushing). The closing sentence about mutation testing and a coverage trend as next stages was dropped; added that the same steps run locally with `run_checks.sh`. 5.1, 5.3 and 5.4 unchanged. |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
