@@ -2,7 +2,7 @@
 
 ### 2.1 Construction of the Test Plan
 
-The plan covers all 57 requirements. It lists six risks with controls, e.g. tests that copy the code instead of the rules (one person wrote both), so expected results are derived from poker rules. Modules are integrated bottom-up, critical ones (evaluator, pot, betting) first, since they decide who wins and how much. The hand is a finite state machine (FSM) of 7 states and 11 transitions. Scaffolding covers a stacked deck, a scripted player, a fixed win probability for bots and bot-only tournaments. Testing is complete when every requirement has a passing test and there is no critical fault. Branch coverage must reach 80% per module. Full plan is in `docs/LO2_test_plan.md`.
+The plan covers all 57 requirements. It lists six risks with controls, e.g. tests that copy the code instead of the rules (one person wrote both), so expected results are derived from poker rules. Modules are integrated bottom-up, critical ones (evaluator, pot, betting) first, since they decide who wins and how much. The hand is a finite state machine (FSM) of 7 states and 11 transitions. Scaffolding covers a stacked deck, a scripted player, a fixed win probability for bots and bot-only tournaments. Testing is complete when every requirement has a passing test and there is no critical fault. Branch coverage must reach 80% per module. The plan changed as the project went on: three requirements, and their tests for situations the game can never reach, were dropped (57 remain, from 60), and coverage was first deferred, then restored. Full plan is in `docs/LO2_test_plan.md`.
 
 ### 2.2 Evaluation of the Quality of the Test Plan
 

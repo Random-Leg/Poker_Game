@@ -10,7 +10,7 @@ A GitHub Actions workflow runs on every push and pull request, on a clean machin
 
 ### 5.3 Automate Some Aspects of the Testing
 
-Every test is executable and follows arrange, act, assert with expected values written in the test. Following the test pyramid, most of the 140 cases are unit and integration level, and a few system tests drive whole hands and seeded tournaments with no screen interaction. `run_checks.sh` runs the same two pipeline steps locally with one command.
+Every test is executable and follows arrange, act, assert with expected values written in the test. Following the test pyramid, most of the 140 cases are unit and integration level, and a few system tests drive whole hands and seeded tournaments with no screen interaction.
 
 ### 5.4 Demonstrate the CI Pipeline Functions as Expected
 
