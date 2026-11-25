@@ -338,3 +338,17 @@ Result of `python3 tournament_stats.py --seed 1 --tournaments 1000` (37 s, Pytho
 |---|---|
 | `portfolio/LO5.md` | **Edited [doc].** 5.2 rewritten to be clearer, at Sasvata's request. The workflow path is now given as `.github/workflows/tests.yml` (the file is still in `ci/tests.yml` until Sasvata moves it when pushing). The closing sentence about mutation testing and a coverage trend as next stages was dropped; added that the same steps run locally with `run_checks.sh`. 5.1, 5.3 and 5.4 unchanged. |
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+## 25 Nov 2026: flat 80% coverage target; portfolio Markdown now matches Sasvata's LaTeX
+
+Sasvata changed the coverage target in the LaTeX to a single 80% and asked for the repo docs and the Markdown portfolio to match, using the LaTeX as the baseline.
+
+| File | Change |
+|---|---|
+| `docs/LO2_test_plan.md` | **Edited [doc].** Completion criterion now "branch coverage is at least 80% for every module except `main.py`" (was 95/90/85/80% by module). Line added under "Changes to this plan" (25 Nov), including the new reliability target of no failure in 1,000 seeded tournaments. |
+| `portfolio/Introduction.md` | **New [doc].** The introduction from the LaTeX (repo link still empty). |
+| `portfolio/LO1.md` to `portfolio/LO5.md` | **Replaced [doc].** Rewritten from Sasvata's LaTeX, with the template's sub-section headings, replacing my earlier drafts. Same text as the LaTeX version listed below. |
+| `portfolio.tex` (sent to Sasvata) | Six small corrections applied to the LaTeX, all agreed in this session: 2.4 now quotes the 1,000-tournament run (13 hit the hand limit) instead of 300 (3); 3.2 "at least 80%"; 3.4 names the shortfalls correctly and says the *faults*, not the tests, were chosen by me; 4.2 states the targets and the reliability target clearly; 4.3 names the four modules below 80% and ties the unsatisfiable-obligations point to bot and probability; 5.2 names Python 3.10 and 3.13; 5.3 "most of the 140" instead of the unverified "117 of 140" and "two pipeline steps". |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+No game code or tests changed. `REQUIREMENTS_v1.md` and older entries are unchanged.
