@@ -352,3 +352,19 @@ Sasvata changed the coverage target in the LaTeX to a single 80% and asked for t
 | `CHANGELOG.md` | **Edited [doc].** This entry added. |
 
 No game code or tests changed. `REQUIREMENTS_v1.md` and older entries are unchanged.
+
+## 25 Nov 2026: LO3 results wording on the surviving fault
+
+| File | Change |
+|---|---|
+| `docs/LO3_results.md` | **Edited [doc].** The fault "Game starts a hand with one player" is now labelled "not caught: cannot be observed" and explained: it removes a check, but a later check raises the same error, so no test could tell the faulty game from the correct one (an equivalent fault, not a gap in the tests). Corrected "Six of the faults were missed by the first version of the suite" to five missed, tests added for four, the fifth being this one. No tests removed and no figures changed (17 faults, 16 caught). |
+| `CHANGELOG.md` | **Edited [doc].** This entry added. |
+
+## 25 Nov 2026: portfolio text edits (LaTeX and portfolio/*.md kept identical)
+- Added \texttt to code names; fixed typos (1.1, 1.2, 1.4, 2.1, 2.3, 2.4, 3.1, 4.3, 4.4); 2.4, section 3, 5.1, 5.2 rewritten; 5.4 and Figure 1 caption reworded.
+- 4.3: failure-rate bound now "one-sided 95% upper bound about 0.3% (rule of three)"; "Most" changed to "Much ... is likely due to" to match 3.4.
+- 5.3: removed the repeated run_checks.sh sentence.
+- 1.4: added line that timing tests depend on the machine (0.22 s vs 1 s limit, passed on CI).
+- 2.1: added sentence on how the plan changed (60 to 57 requirements, coverage deferred then restored).
+- 4.2: added reason for the flat 80% target.
+- portfolio/*.md regenerated from the LaTeX.
